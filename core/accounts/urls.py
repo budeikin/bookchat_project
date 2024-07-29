@@ -1,8 +1,13 @@
 from django.urls import path
-from .views import SignUpView, AccountActivationView
+from .views import SignUpView, AccountActivationView, LoginView, LogoutView, home_page
 
-#
+app_name = 'accounts'
+
 urlpatterns = [
+    path('home/', home_page, name='home'),
+    #
     path('sign-up/', SignUpView.as_view(), name='sign_up'),
-    path('activate/<uidb64>/<token>', AccountActivationView.as_view(), name='account_activation')
+    path('activate/<uidb64>/<token>', AccountActivationView.as_view(), name='account_activation'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
