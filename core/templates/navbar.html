@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<nav>
+    <div class="d-flex justify-content-center align-items-center">
+        <ul class="d-flex justify-content-center align-items-center">
+            <p class="p-3"><a href="{% url 'accounts:home' %}">home</a></p>
+            <p class="p-3">
+                {% if not request.user.is_authenticated %}
+                    <a href="{% url 'accounts:sign_up' %}">sign up</a>
 
-</body>
-</html>
+                {% endif %}
+            </p>
+            <p class="p-3">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'accounts:logout' %}">logout</a>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}">login</a>
+                {% endif %}
+            </p>
+        </ul>
+    </div>
+</nav>
