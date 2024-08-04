@@ -4,12 +4,11 @@ from .models import CustomUser
 
 
 class CustomUserAdmin(UserAdmin):
-
     model = CustomUser
     list_display = ("email", "is_staff", "is_active",)
     list_filter = ("email", "is_staff", "is_active",)
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        (None, {"fields": ("avatar", "email", "password")}),
         ("Permissions", {"fields": ("is_staff", "is_active", "groups", "user_permissions")}),
     )
     add_fieldsets = (
@@ -19,7 +18,7 @@ class CustomUserAdmin(UserAdmin):
                 "email", "password1", "password2", "is_staff",
                 "is_active", "groups", "user_permissions"
             )}
-        ),
+         ),
     )
     search_fields = ("email",)
     ordering = ("email",)

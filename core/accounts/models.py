@@ -8,6 +8,7 @@ from .managers import CustomUserManager
 
 class CustomUser(AbstractUser):
     username = None
+    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
     email = models.EmailField(_("email address"), unique=True)
 
     USERNAME_FIELD = "email"

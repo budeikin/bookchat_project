@@ -106,5 +106,3 @@ class LogoutView(View):
         return redirect('accounts:home')
 
 
-def home_page(request):
-    return render(request=request, template_name='accounts/home.html')
