@@ -1,10 +1,14 @@
+from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
+from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_str
 from django.views.generic import View
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetDoneView, \
+    PasswordResetCompleteView
 from django.core.mail import EmailMessage
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth import login, logout
@@ -19,7 +23,7 @@ from .tokens import account_activation_token
 class SignUpView(View):
     def get(self, request, *args, **kwargs):
         signup_form = SignUpForm()
-        return render(request, 'accounts/signup.html', context={'signup_form': signup_form})
+        return render(request, 'accounts/registration/signup.html', context={'signup_form': signup_form})
 
     def post(self, request, *args, **kwargs):
         signup_form = SignUpForm(request.POST)
@@ -44,7 +48,7 @@ class SignUpView(View):
 
                 messages.success(request, 'an activation code sent to your email check it')
                 return HttpResponse('and email send to you , click on the link on it')
-        return render(request, 'accounts/signup.html', context={'signup_form': signup_form})
+        return render(request, 'accounts/registration/signup.html', context={'signup_form': signup_form})
 
 
 # account activation view
@@ -61,7 +65,7 @@ class AccountActivationView(View):
             user.save()
 
             messages.success(request, 'your account is active now')
-            return HttpResponse('your account is active now')
+            return redirect('accounts:login')
         else:
             raise HttpResponse('something went wrong')
 
@@ -70,7 +74,7 @@ class AccountActivationView(View):
 class LoginView(View):
     def get(self, request, *args, **kwargs):
         login_form = LoginForm()
-        return render(request, 'accounts/login.html', context={'login_form': login_form})
+        return render(request, 'accounts/registration/login.html', context={'login_form': login_form})
 
     def post(self, request, *args, **kwargs):
         login_form = LoginForm(request.POST)
@@ -85,7 +89,7 @@ class LoginView(View):
                         login(request, user)
 
                         messages.success(request, 'you logged in successfully')
-                        return redirect('accounts:home')
+                        return redirect('home:home_page')
                     else:
                         login_form.add_error('password', 'ایمیل کاربری شما یا رمز عبورتان اشتباه است')
                 else:
@@ -93,7 +97,7 @@ class LoginView(View):
             else:
                 login_form.add_error('email', "کاربری با این مشخصات یافت نشد")
 
-            return render(request, 'accounts/login.html', context={'login_form': login_form})
+            return render(request, 'accounts/registration/login.html', context={'login_form': login_form})
 
         return redirect('accounts:login')
 
@@ -103,6 +107,22 @@ class LogoutView(View):
     def get(self, request, *args, **kwargs):
         logout(request)
         messages.success(request, 'you logged out successfully')
-        return redirect('accounts:home')
+        return redirect('home:home_page')
 
 
+# forgot password views
+class CustomPasswordResetView(PasswordResetView):
+    email_template_name = 'accounts/emails/password_reset_email.html'
+    template_name = 'accounts/registration/password_reset.html'
+    success_url = reverse_lazy('accounts:password_reset_done')
+
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'accounts/registration/password_reset_done.html'
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'accounts/registration/password_reset_confirm.html'
+    # form_class = SetPasswordForm
+    # token_generator = account_activation_token
+    success_url = reverse_lazy('home:home_page')
