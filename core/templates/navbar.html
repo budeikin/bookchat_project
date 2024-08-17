@@ -1,7 +1,7 @@
-<nav class="d-flex justify-content-center">
+<nav class="d-flex justify-content-center bg-dark mb-3">
     <div class="d-flex justify-content-right align-items-center">
         <ul class="d-flex justify-content-center align-items-center">
-            <p class="p-3"><a href="{% url 'home:home_page' %}">home</a></p>
+            <p class="p-3 text-white"><a class="text-white" href="{% url 'home:home_page' %}">home</a></p>
 
         </ul>
     </div>
@@ -10,8 +10,8 @@
         <ul class="d-flex justify-content-center align-items-center">
 
             {% if not request.user.is_authenticated %}
-                <p class="p-3"><a href="{% url 'accounts:sign_up' %}">sign up</a> /</p>
-                <p class="p-3"><a href="{% url 'accounts:login' %}">login</a></p>
+                <p class="p-3 text-white"><a class="text-white" href="{% url 'accounts:sign_up' %}">sign up</a> /</p>
+                <p class="p-3 text-white"><a class="text-white" href="{% url 'accounts:login' %}">login</a></p>
 
             {% else %}
                 {% if user.avatar %}
@@ -20,8 +20,8 @@
                     <img src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
                          alt="img" class="rounded-circle" style="width: 50px">
                 {% endif %}
-                <p class="p-3">{{ request.user.email }}</p>
-                <p class="p-3"><a href="{% url 'accounts:logout' %}">logout</a></p>
+                <p class="p-3 text-white">{{ request.user.email }}</p>
+                <p class="p-3 text-white"><a class="text-white" href="{% url 'accounts:logout' %}">logout</a></p>
             {% endif %}
 
 

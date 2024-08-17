@@ -1,9 +1,41 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     Home
 {% endblock %}
+{% block refrences %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Rock+Salt&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
 
+{% endblock %}
 {% block content %}
-    <h3>this is home page</h3>
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center flex-column">
+            <h3 style='font-family: "Rock Salt", cursive;'>Welcome To The Book Chat Website</h3>
+            <img src="{% static 'home/images/BookChat_InsiderGraphic-1280x720-1.jpg' %}" alt="book">
+            <h5 class="des_box">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur aut
+                consectetur consequatur
+                corporis distinctio doloribus eligendi et laborum, libero mollitia non nostrum officiis perspiciatis
+                similique, temporibus ut! Animi assumenda delectus impedit incidunt labore laboriosam laudantium modi,
+                molestias provident quos repellendus temporibus tenetur totam? Cupiditate debitis, esse facilis
+                necessitatibus nemo officiis qui sed. Ab accusamus aliquid architecto beatae commodi delectus distinctio
+                dolore doloribus eaque earum esse est eum excepturi fuga id illo in laboriosam maiores modi non nostrum
+                odit pariatur praesentium provident quidem quos rem repellendus reprehenderit sunt suscipit tempora
+                tempore tenetur totam, unde velit voluptatem voluptatibus! Eos nobis, velit.
+            </h5>
+        </div>
+
+        <img class="book" src="{% static 'home/images/49552.jpg' %}" alt="">
+        <img class="book" src="{% static 'home/images/Belljarfirstedition.jpg' %}" alt="">
+        <img class="book" src="{% static 'home/images/Oldmansea.jpg' %}" alt="">
+        <img class="book" src="{% static 'home/images/Germinal_first_edition_cover.jpg' %}" alt="">
+        <img class="book" src="{% static 'home/images/330px-The_Sound_and_the_Fury_(1929_1st_ed_dust_jacket).jpg' %}"
+             alt="">
+
+
+    </div>
 {% endblock %}

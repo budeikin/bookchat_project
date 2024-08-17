@@ -1,28 +1,32 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     login
 {% endblock %}
 
+{% block refrences %}
+    <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
+{% endblock %}
+
 {% block content %}
     <div class="container">
-        <form method="post" class="login">
-            {% csrf_token %}
-            <div class="login__field">
-                <i class="login__icon fas fa-user"></i>
-                <input type="text" name="email" class="login__input" placeholder="Email">
-            </div>
-            {{ login_form.email.errors }}
-            <div class="login__field">
-                <i class="login__icon fas fa-lock"></i>
-                <input type="password" name="password" class="login__input" placeholder="Password">
-            </div>
-            {{ login_form.password.errors }}
-            <button type="submit" class="button login__submit">
-                login
-            </button>
+        <div class="login-box">
+            <form method="post" class="login">
+                {% csrf_token %}
+                {{ login_form.email.label }}
+                {{ login_form.email }}
+                {{ login_form.email.errors }}
+                {{ login_form.password.label }}
+                {{ login_form.password }}
+                {{ login_form.password.errors }}
+                <hr>
+                <button type="submit" class="btn btn-primary login__submit">
+                    login
+                </button>
 
-        </form>
-        <a href={% url 'accounts:password_reset' %}>forget password ?</a>
+            </form>
+            <a href={% url 'accounts:password_reset' %}>forget password ?</a>
+        </div>
     </div>
 {% endblock %}

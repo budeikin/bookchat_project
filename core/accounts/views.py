@@ -91,11 +91,11 @@ class LoginView(View):
                         messages.success(request, 'you logged in successfully')
                         return redirect('home:home_page')
                     else:
-                        login_form.add_error('password', 'ایمیل کاربری شما یا رمز عبورتان اشتباه است')
+                        login_form.add_error('password', 'something went wrong')
                 else:
-                    login_form.add_error('email', 'حساب کاربری شما فعال نیست')
+                    login_form.add_error('email', 'your account is not active')
             else:
-                login_form.add_error('email', "کاربری با این مشخصات یافت نشد")
+                login_form.add_error('email', "this user does not exist")
 
             return render(request, 'accounts/registration/login.html', context={'login_form': login_form})
 
