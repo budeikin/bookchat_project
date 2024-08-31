@@ -12,7 +12,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class AuthorAdmin(admin.ModelAdmin):
     model = Author
-    list_display = ['name']
+    list_display = ['name', 'age']
     prepopulated_fields = {'slug': ['name']}
 
 

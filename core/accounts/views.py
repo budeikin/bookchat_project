@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_str
 from django.views.generic import View
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetDoneView, \
-    PasswordResetCompleteView
+    PasswordResetCompleteView, PasswordChangeView
 from django.core.mail import EmailMessage
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth import login, logout
@@ -126,3 +126,19 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     # form_class = SetPasswordForm
     # token_generator = account_activation_token
     success_url = reverse_lazy('home:home_page')
+
+
+class CustomPasswordChangeView(PasswordChangeView):
+    template_name = 'accounts/registration/password_change_form.html'
+    success_url = reverse_lazy('home:home_page')
+    success_message = 'your password changed successfully'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        success_message = self.get_success_message(form.cleaned_data)
+        if success_message:
+            messages.success(self.request, success_message)
+        return response
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message % cleaned_data
