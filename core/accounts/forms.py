@@ -18,3 +18,9 @@ class SignUpForm(UserCreationForm):
 class LoginForm(forms.Form):
     email = forms.EmailField(max_length=200, help_text='Required')
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+class ProfilePictureChangeForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['avatar']

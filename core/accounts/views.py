@@ -6,13 +6,13 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_str
-from django.views.generic import View
+from django.views.generic import View, TemplateView
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetDoneView, \
     PasswordResetCompleteView, PasswordChangeView
 from django.core.mail import EmailMessage
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth import login, logout
-from .forms import SignUpForm, LoginForm
+from .forms import SignUpForm, LoginForm, ProfilePictureChangeForm
 from .models import CustomUser
 from .tokens import account_activation_token
 
@@ -142,3 +142,17 @@ class CustomPasswordChangeView(PasswordChangeView):
 
     def get_success_message(self, cleaned_data):
         return self.success_message % cleaned_data
+
+
+class ChangePictureView(View):
+
+    def get(self, request):
+        form = ProfilePictureChangeForm(instance=request.user)
+        return render(request, 'accounts/registration/profile_picture_change.html', context={'form': form})
+
+    def post(self, request):
+        form = ProfilePictureChangeForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save(commit=True)
+            messages.success(request, 'profile changed successfully')
+        return render(request, 'accounts/registration/profile_picture_change.html', context={'form': form})
