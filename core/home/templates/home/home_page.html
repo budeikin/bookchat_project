@@ -14,9 +14,9 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-{#        <h4>{{ time }}</h4>#}
+        {#        <h4>{{ time }}</h4>#}
 
-        <h3>{{ last_book.name }} by {{ last_book.author }}</h3>
+        <h3>{{ last_book.name }} by {{ last_book.author }} ({{ last_book.category }})</h3>
         <img class="book" src="{{ last_book.cover.url }}" alt="">
         {#        <img class="book" src="{% static 'home/images/Belljarfirstedition.jpg' %}" alt="">#}
         {#        <img class="book" src="{% static 'home/images/Oldmansea.jpg' %}" alt="">#}

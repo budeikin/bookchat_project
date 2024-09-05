@@ -18,7 +18,7 @@ class AuthorAdmin(admin.ModelAdmin):
 
 class BookAdmin(admin.ModelAdmin):
     model = Category
-    list_display = ['name', 'author']
+    list_display = ['name', 'author', 'category']
     prepopulated_fields = {'slug': ['name']}
 
 
