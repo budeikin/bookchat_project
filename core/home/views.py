@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from book.models import Author, Book
+from book.models import Author, Book, Category
 from datetime import datetime
 
 
@@ -13,4 +13,5 @@ class HomePageTemplateView(TemplateView):
         context = super().get_context_data()
         # context['time'] = datetime.now()
         context['last_book'] = Book.objects.last()
+        context['categories'] = Category.objects.all()
         return context

@@ -15,15 +15,27 @@
 {% block content %}
     <div class="container">
         {#        <h4>{{ time }}</h4>#}
+        <div>
 
-        <h3>{{ last_book.name }} by {{ last_book.author }} ({{ last_book.category }})</h3>
+        </div>
+        <hr>
+        <h3>{{ last_book.name }} ({{ last_book.category }})</h3>
         <img class="book" src="{{ last_book.cover.url }}" alt="">
         {#        <img class="book" src="{% static 'home/images/Belljarfirstedition.jpg' %}" alt="">#}
         {#        <img class="book" src="{% static 'home/images/Oldmansea.jpg' %}" alt="">#}
         {#        <img class="book" src="{% static 'home/images/Germinal_first_edition_cover.jpg' %}" alt="">#}
         {#        <img class="book" src="{% static 'home/images/330px-The_Sound_and_the_Fury_(1929_1st_ed_dust_jacket).jpg' %}"#}
         {#             alt="">#}
+        <div class="d-flex">
+            <p>Author : </p>
+            <p> {{ last_book.author.name }}</p>
+            <img src="{{ last_book.author.image.url }}" alt="author_image" class="rounded-circle" style="width: 40px">
 
+        </div>
+        <div>
+            <h2 class="btn btn-success"><a class="text-white" href="{% url 'chat:course_chat_room' last_book.id %}">start
+                chatting</a></h2>
+        </div>
 
     </div>
 {% endblock %}

@@ -24,6 +24,7 @@ urlpatterns = [
     path('account/', include('accounts.urls')),
     path('', include('home.urls')),
     path('book/', include('book.urls')),
+    path('chat/', include('chat.urls', namespace='chat')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
