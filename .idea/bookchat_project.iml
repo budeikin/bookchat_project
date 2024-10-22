@@ -18,6 +18,7 @@
       <list>
         <option value="$MODULE_DIR$/core/accounts/templates" />
         <option value="$MODULE_DIR$/core/templates" />
+        <option value="$MODULE_DIR$/core/chat/templates" />
       </list>
     </option>
   </component>

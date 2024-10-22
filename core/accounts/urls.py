@@ -1,7 +1,8 @@
 from django.urls import path
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from .views import SignUpView, AccountActivationView, LoginView, LogoutView, CustomPasswordResetView, \
-    CustomPasswordResetDoneView, CustomPasswordResetConfirmView, CustomPasswordChangeView, ChangePictureView
+    CustomPasswordResetDoneView, CustomPasswordResetConfirmView, CustomPasswordChangeView, ChangePictureView, \
+    UserDashboard
 
 app_name = 'accounts'
 
@@ -10,6 +11,8 @@ urlpatterns = [
     path('activate/<uidb64>/<token>', AccountActivationView.as_view(), name='account_activation'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+
+    path('dashboard/', UserDashboard.as_view(), name='dashboard'),
 
     path('forget-password/', CustomPasswordResetView.as_view(), name='password_reset'),
     path('forget-password/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),

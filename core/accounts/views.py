@@ -156,3 +156,7 @@ class ChangePictureView(View):
             form.save(commit=True)
             messages.success(request, 'profile changed successfully')
         return render(request, 'accounts/registration/profile_picture_change.html', context={'form': form})
+
+
+class UserDashboard(TemplateView):
+    template_name = 'accounts/user_panel/dashboard.html'
