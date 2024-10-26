@@ -3,7 +3,7 @@
 
 {% block title %}Chat room for "{{ book.name }}"{% endblock %}
 {% block refrences %}
-    <link rel="stylesheet" href="{% static 'chat/room.css' %}">
+    <link rel="stylesheet" href="{% static 'chat/room.css' %}" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 {% block content %}
     <div id="chat">
@@ -16,19 +16,33 @@
 {% endblock %}
 {% block include_js %}
     {{ book.id|json_script:"book-id" }}
+    {{ request.user.email|json_script:"request-user" }}
 {% endblock %}
 {% block domready %}
     const bookId = JSON.parse(
     document.getElementById('book-id').textContent
     );
+
+    const requestUser = JSON.parse(
+    document.getElementById('request-user').textContent
+    );
+
     const url = 'ws://' + window.location.host +
     '/ws/chat/room/' + bookId + '/';
     const chatSocket = new WebSocket(url);
     chatSocket.onmessage = function(event) {
+
     const data = JSON.parse(event.data);
     const chat = document.getElementById('chat');
-    chat.innerHTML +=
-    '<div class="message">' + data.message + '</div>';
+    const dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
+    const datetime = new Date(data.datetime).toLocaleString('en', dateOptions);
+    const isMe = data.user === requestUser;
+    const source = isMe ? 'me' : 'other';
+    const name = isMe ? 'Me' : data.user;
+    chat.innerHTML += '<div class="message ' + source + '">' +
+        '<strong>' + name + '</strong> ' +
+        '<span class="date">' + datetime + '</span><br>' + data.message +
+    '</div>';
     chat.scrollTop = chat.scrollHeight;
     };
     chatSocket.onclose = function(event) {
@@ -54,6 +68,5 @@
     submitButton.click();
     }
     });
-
     input.focus();
 {% endblock %}
