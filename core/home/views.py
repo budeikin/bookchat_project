@@ -11,7 +11,7 @@ class HomePageTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        # context['time'] = datetime.now()
+        context['time'] = datetime.now()
         context['last_book'] = Book.objects.last()
         context['categories'] = Category.objects.all()
         return context
