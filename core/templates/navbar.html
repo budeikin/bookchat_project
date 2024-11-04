@@ -23,20 +23,12 @@
                          alt="img" class="rounded-circle" style="width: 50px">
                 {% endif %}
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink"
-                       data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        {{ request.user.email }}
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{% url 'accounts:password_change' %}">change password</a>
-                        <a class="dropdown-item" href="{% url 'accounts:dashboard' %}">your profile</a>
-                        <a class="dropdown-item" href="{% url 'accounts:logout' %}">sign out</a>
-                        <a class="dropdown-item" href="{% url 'accounts:profile_picture_change' %}">change profile
-                            picture</a>
-                    </div>
-                </li>
+
+                <a class="nav-link  text-white" href="{% url 'accounts:dashboard' %}">
+                    {{ request.user.email }}
+                </a>
+
+
 
             {% endif %}
 

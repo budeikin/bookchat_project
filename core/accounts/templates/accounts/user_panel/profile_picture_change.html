@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load render_partial %}
+{% block title %}
+    change profile picture
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex">
+        <div class="col-9">
+            <p>change your profile picture</p>
+            <hr>
+            {% if request.user.avatar %}
+                <img src="{{ request.user.avatar.url }}" style="width: 300px" alt="profile">
+            {% else %}
+                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                     style="width: 300px"
+                     alt="profile">
+
+            {% endif %}
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary" type="submit">save</button>
+            </form>
+        </div>
+        {% render_partial 'accounts.views.UserPanelMenuView' %}
+    </div>
+
+{% endblock %}

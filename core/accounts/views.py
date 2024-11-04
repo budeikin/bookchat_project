@@ -113,23 +113,23 @@ class LogoutView(View):
 # forgot password views
 class CustomPasswordResetView(PasswordResetView):
     email_template_name = 'accounts/emails/password_reset_email.html'
-    template_name = 'accounts/registration/password_reset.html'
+    template_name = 'accounts/user_panel/password_reset.html'
     success_url = reverse_lazy('accounts:password_reset_done')
 
 
 class CustomPasswordResetDoneView(PasswordResetDoneView):
-    template_name = 'accounts/registration/password_reset_done.html'
+    template_name = 'accounts/user_panel/password_reset_done.html'
 
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'accounts/registration/password_reset_confirm.html'
+    template_name = 'accounts/user_panel/password_reset_confirm.html'
     # form_class = SetPasswordForm
     # token_generator = account_activation_token
     success_url = reverse_lazy('home:home_page')
 
 
 class CustomPasswordChangeView(PasswordChangeView):
-    template_name = 'accounts/registration/password_change_form.html'
+    template_name = 'accounts/user_panel/password_change_form.html'
     success_url = reverse_lazy('home:home_page')
     success_message = 'your password changed successfully'
 
@@ -148,15 +148,20 @@ class ChangePictureView(View):
 
     def get(self, request):
         form = ProfilePictureChangeForm(instance=request.user)
-        return render(request, 'accounts/registration/profile_picture_change.html', context={'form': form})
+        return render(request, 'accounts/user_panel/profile_picture_change.html', context={'form': form})
 
     def post(self, request):
         form = ProfilePictureChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save(commit=True)
             messages.success(request, 'profile changed successfully')
-        return render(request, 'accounts/registration/profile_picture_change.html', context={'form': form})
+            return redirect('accounts:dashboard')
+        return render(request, 'accounts/user_panel/profile_picture_change.html', context={'form': form})
 
 
 class UserDashboard(TemplateView):
     template_name = 'accounts/user_panel/dashboard.html'
+
+
+class UserPanelMenuView(TemplateView):
+    template_name = 'accounts/user_panel/components/user-panel-menu.html'

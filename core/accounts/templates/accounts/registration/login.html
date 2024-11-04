@@ -6,12 +6,13 @@
 {% endblock %}
 
 {% block refrences %}
-    <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
 {% endblock %}
 
 {% block content %}
     <div class="container">
         <div class="login-box">
+            <p class="imp">hello world</p>
             <form method="post" class="login">
                 {% csrf_token %}
                 {{ login_form.email.label }}
